@@ -21,3 +21,6 @@ jobs:
       - name: Publish
         run: go list -m github.com/wernerstrydom/conversion@${{  github.ref_name }}
         
+      - name: Go Get
+        run: GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/wernerstrydom/conversion@${{  github.ref_name }}
+        
