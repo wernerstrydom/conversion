@@ -20,4 +20,14 @@ jobs:
           
       - name: Publish
         run: go list -m github.com/wernerstrydom/conversion@${{  github.ref_name }}
+  
+  download:
+    runs-on: ubuntu-latest
+    needs: 
+      - publish
+    steps:
+      - name: Go Mod Init
+        run: go mod init github.com/wernerstrydom/conversion-example
+      - name: Go Get
+        run: GOPROXY=https://proxy.golang.org GO111MODULE=on go get github.com/wernerstrydom/conversion@${{  github.ref_name }}
         
