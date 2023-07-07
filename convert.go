@@ -4,10 +4,23 @@ import (
     "reflect"
 )
 
+// UsingTypeConverter registers a type converter. The type converter will be used
+// to convert values when mapping from one type to another. The type converter
+// will be used in the order it was registered. If a type converter is registered
+// that can convert a type, then it will be used instead of the default type. If
+// a type converter is registered that can convert a type, but you want to use
+// the default type converter, then you must unregister the type converter.
 func UsingTypeConverter(tc TypeConverter) {
     typeConverters = append(typeConverters, tc)
 }
 
+// ConvertUsing registers a function to help with converting from one type to
+// another. The function will be used to convert values when mapping from one
+// type to another. The function will be used in the order it was registered.
+// If a function is registered that can convert a type, then it will be used
+// instead of the default type. If a function is registered that can convert a
+// type, but you want to use the default type converter, then you must unregister
+// the function.
 func ConvertUsing[TSource, TDestination any](f func(source TSource) (TDestination, error)) {
     canConvert := func(sourceType reflect.Type, destinationType reflect.Type) bool {
         var s TSource
@@ -81,7 +94,7 @@ func convert(source reflect.Value, destinationType reflect.Type) (reflect.Value,
     } else if (dtype.Kind() == reflect.Slice || dtype.Kind() == reflect.Array) && (stype.Kind() == reflect.Slice || stype.Kind() == reflect.Array) {
         value, err = convertSlice(source, dtype)
     } else if stype.Kind() == reflect.Struct && dtype.Kind() == reflect.Struct {
-        value, err = convertString(source, dtype)
+        value, err = convertStruct(source, dtype)
     }
 
     if err != nil {
@@ -127,7 +140,7 @@ func convertSlice(source reflect.Value, destinationType reflect.Type) (reflect.V
     return value, err
 }
 
-func convertString(source reflect.Value, dtype reflect.Type) (reflect.Value, error) {
+func convertStruct(source reflect.Value, dtype reflect.Type) (reflect.Value, error) {
     var value reflect.Value
     value = reflect.New(dtype)
 
@@ -153,6 +166,12 @@ func convertString(source reflect.Value, dtype reflect.Type) (reflect.Value, err
     return value.Elem(), nil
 }
 
+// Convert converts a source value to a destination value. The destination value
+// must be a pointer. The source value can be a pointer or a value. If the
+// source value is a pointer, then the pointer will be dereferenced. If the
+// destination value is a pointer, then the converted value will be set to the
+// pointer. If the destination value is not a pointer, then the converted value
+// will be set to the value of the pointer.
 func Convert[TSource, TDestination any](source TSource, destination *TDestination) error {
     // Obtain the reflect.Value of the source
     sourceValue := reflect.ValueOf(source)
