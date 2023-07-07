@@ -4,23 +4,13 @@ import (
     "reflect"
 )
 
-// UsingTypeConverter registers a type converter. The type converter will be used
-// to convert values when mapping from one type to another. The type converter
-// will be used in the order it was registered. If a type converter is registered
-// that can convert a type, then it will be used instead of the default type. If
-// a type converter is registered that can convert a type, but you want to use
-// the default type converter, then you must unregister the type converter.
+// UsingTypeConverter registers a TypeConverter.
 func UsingTypeConverter(tc TypeConverter) {
     typeConverters = append(typeConverters, tc)
 }
 
 // ConvertUsing registers a function to help with converting from one type to
-// another. The function will be used to convert values when mapping from one
-// type to another. The function will be used in the order it was registered.
-// If a function is registered that can convert a type, then it will be used
-// instead of the default type. If a function is registered that can convert a
-// type, but you want to use the default type converter, then you must unregister
-// the function.
+// another.
 func ConvertUsing[TSource, TDestination any](f func(source TSource) (TDestination, error)) {
     canConvert := func(sourceType reflect.Type, destinationType reflect.Type) bool {
         var s TSource
@@ -41,7 +31,27 @@ func ConvertUsing[TSource, TDestination any](f func(source TSource) (TDestinatio
     UsingTypeConverter(typeConverter{canConvert: canConvert, convert: convert})
 }
 
-// convert function
+// Convert is a generic function in Go that converts a source value of any
+// type to a specified destination type.
+//
+// This function provides a flexible and safe way to perform conversions
+// between different types in Go. The function uses reflection to inspect the
+// types of the input values at runtime, and performs the appropriate
+// conversion if possible. If the conversion is not possible (for instance,
+// if the types are incompatible), the function will return an error.
+func Convert[TSource, TDestination any](source TSource, destination *TDestination) error {
+    sourceValue := reflect.ValueOf(source)
+    destinationType := reflect.TypeOf(destination).Elem()
+    convertedValue, err := convert(sourceValue, destinationType)
+    if err != nil {
+        return err
+    }
+
+    reflect.ValueOf(destination).Elem().Set(convertedValue)
+
+    return nil
+}
+
 func convert(source reflect.Value, destinationType reflect.Type) (reflect.Value, error) {
     var dtype, stype reflect.Type
     var value reflect.Value
@@ -164,29 +174,4 @@ func convertStruct(source reflect.Value, dtype reflect.Type) (reflect.Value, err
         }
     }
     return value.Elem(), nil
-}
-
-// Convert converts a source value to a destination value. The destination value
-// must be a pointer. The source value can be a pointer or a value. If the
-// source value is a pointer, then the pointer will be dereferenced. If the
-// destination value is a pointer, then the converted value will be set to the
-// pointer. If the destination value is not a pointer, then the converted value
-// will be set to the value of the pointer.
-func Convert[TSource, TDestination any](source TSource, destination *TDestination) error {
-    // Obtain the reflect.Value of the source
-    sourceValue := reflect.ValueOf(source)
-
-    // Obtain the reflect.Type of the destination
-    destinationType := reflect.TypeOf(destination).Elem()
-
-    // Call the convert function
-    convertedValue, err := convert(sourceValue, destinationType)
-    if err != nil {
-        return err
-    }
-
-    // Set the converted value to the destination pointer
-    reflect.ValueOf(destination).Elem().Set(convertedValue)
-
-    return nil
 }
