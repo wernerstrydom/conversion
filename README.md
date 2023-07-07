@@ -1,7 +1,7 @@
 # Conversion
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
+[![Go Reference](https://pkg.go.dev/badge/github.com/wernerstrydom/conversion.svg)](https://pkg.go.dev/github.com/wernerstrydom/conversion)
 
 **Source Type: string**
 - int
