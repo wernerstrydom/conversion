@@ -10,7 +10,8 @@ import (
 
 var typeConverters []TypeConverter
 
-func init() {
+// RegisterDefaultConverters registers the default type converters.
+func RegisterDefaultConverters() {
     // register default type converters
     ConvertUsing(
         func(source string) (int, error) {
