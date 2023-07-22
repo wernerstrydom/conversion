@@ -2,33 +2,113 @@ package conversion
 
 import "fmt"
 
-// SourceStruct is a struct with exported fields.
-type SourceStruct struct {
-    Name  string
-    Value int
+type S1 struct {
+	FirstName string
+	LastName  string
 }
 
-// DestinationStruct is a struct with exported fields that are pointers.
-type DestinationStruct struct {
-    Name  *string
-    Value *int
+type S2 struct {
+	FirstName string
+	LastName  string
 }
 
-// ExampleConvert_struct demonstrates how to convert a struct. In this example,
-// we convert from a struct with exported fields to a struct with exported
-// fields that are pointers.
-func ExampleConvert_struct() {
+type S3 struct {
+	FirstName string
+	LastName  string
+	Age       int
+}
 
-    var source = SourceStruct{
-        Name:  "John",
-        Value: 42,
-    }
+type S4 struct {
+	FirstName *string
+	LastName  *string
+}
 
-    var destination DestinationStruct
-    err := Convert(source, &destination)
-    if err != nil {
-        // Handle error
-    }
-    fmt.Println(*destination.Name, *destination.Value)
-    // Output: John 42
+// This example demonstrates how to map from a struct to a struct with the same
+// number of fields.
+func ExampleMapper_Map_identical() {
+	source := S1{FirstName: "John", LastName: "Doe"}
+	var destination S2
+	cfg := NewConfiguration()
+	mapper := cfg.BuildMapper()
+
+	err := mapper.Map(source, &destination)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(destination.FirstName)
+	fmt.Println(destination.LastName)
+	// Output:
+	// John
+	// Doe
+}
+
+// This example demonstrates how to map from a struct to a struct with a
+// different number of fields.
+func ExampleMapper_Map_fieldMismatch() {
+	source := S1{FirstName: "John", LastName: "Doe"}
+	var destination S3
+	cfg := NewConfiguration()
+	mapper := cfg.BuildMapper()
+
+	err := mapper.Map(source, &destination)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(destination.FirstName)
+	fmt.Println(destination.LastName)
+	fmt.Println(destination.Age)
+	// Output:
+	// John
+	// Doe
+	// 0
+}
+
+// This example demonstrates how to map from a struct to a struct with a
+// different number of fields, and how any fields that are not mapped will
+// have their original values.
+func ExampleMapper_Map_fieldMismatchWithDefaults() {
+	source := S1{FirstName: "John", LastName: "Doe"}
+	destination := S3{Age: 42}
+	cfg := NewConfiguration()
+	mapper := cfg.BuildMapper()
+
+	err := mapper.Map(source, &destination)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(destination.FirstName)
+	fmt.Println(destination.LastName)
+	fmt.Println(destination.Age)
+	// Output:
+	// John
+	// Doe
+	// 42
+}
+
+// This example demonstrates how to map from a struct to a struct with the same
+// fields, except that the destination fields are pointers. This can be useful
+// when making API calls where requests often have optional fields.
+func ExampleMapper_Map_pointer() {
+	source := S1{FirstName: "John", LastName: "Doe"}
+	var destination S4
+	cfg := NewConfiguration()
+	mapper := cfg.BuildMapper()
+
+	err := mapper.Map(source, &destination)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(*destination.FirstName)
+	fmt.Println(*destination.LastName)
+	// Output:
+	// John
+	// Doe
 }

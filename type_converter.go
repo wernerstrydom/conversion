@@ -1,29 +1,47 @@
 package conversion
 
-import "reflect"
+import (
+	"reflect"
+)
 
-// TypeConverter is an interface that defines a type converter. A type converter
-// is responsible for converting a value from one type to another.
+// TypeConverter is an interface for converting types of values from one type to another.
 type TypeConverter interface {
-
-    // CanConvert returns true if the type converter can convert a value from
-    // sourceType to destinationType.
-    CanConvert(sourceType reflect.Type, destinationType reflect.Type) bool
-
-    // Convert converts a value from source to destinationType. If the
-    // conversion is not possible, the function will return an error.
-    Convert(source reflect.Value, destinationType reflect.Type) (reflect.Value, error)
+	CanConvert(source, destination reflect.Type) bool
+	Convert(source, destination reflect.Value, sourceType, destinationType reflect.Type, mapper Mapper) (
+		reflect.Value,
+		error,
+	)
 }
 
-type typeConverter struct {
-    canConvert func(sourceType reflect.Type, destinationType reflect.Type) bool
-    convert    func(source reflect.Value, destinationType reflect.Type) (reflect.Value, error)
+type typeConverter[TSource, TDestination any] struct {
+	f func(source TSource) (TDestination, error)
 }
 
-func (tc typeConverter) CanConvert(sourceType reflect.Type, destinationType reflect.Type) bool {
-    return tc.canConvert(sourceType, destinationType)
+func (tc typeConverter[TSource, TDestination]) CanConvert(source, destination reflect.Type) bool {
+	var s TSource
+	var d TDestination
+	tSource := reflect.TypeOf(s)
+	tDestination := reflect.TypeOf(d)
+	canConvert := source == tSource && destination == tDestination
+	// log.Printf("CanConvert[%s, %s]: %s  -> %s: %v", tSource, tDestination, source, destination, canConvert)
+	return canConvert
 }
 
-func (tc typeConverter) Convert(source reflect.Value, destinationType reflect.Type) (reflect.Value, error) {
-    return tc.convert(source, destinationType)
+func (tc typeConverter[TSource, TDestination]) Convert(
+	source, destination reflect.Value,
+	sourceType, destinationType reflect.Type,
+	mapper Mapper,
+) (reflect.Value, error) {
+	s := source.Interface().(TSource)
+	d, err := tc.f(s)
+	if err != nil {
+		return reflect.Value{}, err
+	}
+	return reflect.ValueOf(d), nil
+}
+
+func NewTypeConverter[TSource, TDestination any](
+	f func(source TSource) (TDestination, error),
+) TypeConverter {
+	return typeConverter[TSource, TDestination]{f: f}
 }
