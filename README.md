@@ -2,170 +2,104 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 [![Go Reference](https://pkg.go.dev/badge/github.com/wernerstrydom/conversion.svg)](https://pkg.go.dev/github.com/wernerstrydom/conversion)
+# Conversion
+)
+[![GoDoc](https://godoc.org/github.com/wernerstrydom/conversion?status.svg)](https://godoc.org/github.com/wernerstrydom/conversion)
 
-Conversion is a powerful and flexible Go module for converting one data type to another. This library offers a convenient and efficient solution for mapping types in Go, heavily influenced by AutoMapper. It provides out-of-the-box conversions for basic types and allows for registration of custom conversions as per your application needs. The Conversion library is available under the MIT license and open to contributions.
+Conversion is a Go library inspired by .NET's AutoMapper, designed to streamline and simplify the process of converting one type to another.
 
-## Table of Contents
+This library's primary goal is to abstract the boilerplate code of converting disparate types, allowing developers to focus on their application's core logic.
 
-- [Installation](#installation)
-- [Predefined Conversions](#predefined-conversions)
-- [Usage](#usage)
-    - [Built-in Conversions](#built-in-conversions)
-    - [Registering Custom Conversions](#registering-custom-conversions)
-- [Contributing](#contributing)
-- [License](#license)
+## Features
 
-## Installation
+- Simplified type conversion.
+- Decouples conversion logic from application business logic.
+- Support for custom conversion functions.
+- Configurable and extensible.
 
-To include Conversion in your project, use the following command:
+## Getting Started
 
-```bash
-go get github.com/wernerstrydom/conversion
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+The project requires:
+
+- [Go](https://golang.org/doc/install) (version 1.18 or higher)
+
+### Installing
+
+To start using Conversion, install Go and run `go get`:
+
+```sh
+$ go get github.com/wernerstrydom/conversion
 ```
 
-Then, you can import it in your Go files as follows:
-
-```go
-import "github.com/wernerstrydom/conversion"
-```
-
-Register the default converters by calling the `RegisterDefaultConverters` function in your `init` function:
-
-```go
-func init() {
-    conversion.RegisterDefaultConverters()
-}
-```
+This will retrieve the library.
 
 ## Usage
 
-### Built-in Conversions
-
-Conversion provides default converters for basic data types. The `Convert` function is the primary method for converting data types. It converts a source value to a destination value. The destination value must be a pointer, while the source value can be either a pointer or a value.
-
-Here is a basic example:
+Here is a simple example of how to use the Conversion library to convert temperatures between Fahrenheit and Celsius:
 
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/wernerstrydom/conversion"
+  "fmt"
+
+  "github.com/wernerstrydom/conversion"
 )
 
-func main() {
-    var source int = 10
-    var destination float64
+type Fahrenheit float64
+type Celsius float64
 
-    err := conversion.Convert(source, &destination)
-    if err != nil {
-        fmt.Println(err)
-    }
-
-    fmt.Println(destination) // Prints: 10.0
-}
-```
-
-
-The following table lists the built-in conversions provided by the `conversion` library:
-
-| Source Type      | Destination Type | Description                             |
-|------------------|------------------|-----------------------------------------|
-| string           | int              | Converts a string to an int             |
-| string           | int64            | Converts a string to an int64           |
-| string           | int32            | Converts a string to an int32           |
-| string           | int16            | Converts a string to an int16           |
-| string           | int8             | Converts a string to an int8            |
-| string           | uint             | Converts a string to a uint             |
-| string           | uint64           | Converts a string to a uint64           |
-| string           | uint32           | Converts a string to a uint32           |
-| string           | uint16           | Converts a string to a uint16           |
-| string           | uint8            | Converts a string to a uint8            |
-| string           | float64          | Converts a string to a float64          |
-| string           | float32          | Converts a string to a float32          |
-| string           | complex64        | Converts a string to a complex64        |
-| string           | complex128       | Converts a string to a complex128       |
-| string           | bool             | Converts a string to a bool             |
-| string           | time.Time        | Converts a string to a time.Time        |
-| string           | time.Duration    | Converts a string to a time.Duration    |
-| string           | url.URL          | Converts a string to a url.URL          |
-| string           | net.IP           | Converts a string to a net.IP           |
-| string           | net.IPNet        | Converts a string to a net.IPNet        |
-| string           | net.HardwareAddr | Converts a string to a net.HardwareAddr |
-| uint             | string           | Converts a uint to a string             |
-| uint8            | string           | Converts a uint8 to a string            |
-| uint16           | string           | Converts a uint16 to a string           |
-| uint32           | string           | Converts a uint32 to a string           |
-| uint64           | string           | Converts a uint64 to a string           |
-| int              | string           | Converts an int to a string             |
-| int8             | string           | Converts an int8 to a string            |
-| int16            | string           | Converts an int16 to a string           |
-| int32            | string           | Converts an int32 to a string           |
-| int64            | string           | Converts an int64 to a string           |
-| float32          | string           | Converts a float32 to a string          |
-| float64          | string           | Converts a float64 to a string          |
-| bool             | string           | Converts a bool to a string             |
-| complex64        | string           | Converts a complex64 to a string        |
-| complex128       | string           | Converts a complex128 to a string       |
-| time.Duration    | string           | Converts a time.Duration to a string    |
-| time.Time        | string           | Converts a time.Time to a string        |
-| url.URL          | string           | Converts a url.URL to a string          |
-| net.IP           | string           | Converts a net.IP to a string           |
-| net.IPNet        | string           | Converts a net.IPNet to a string        |
-| net.HardwareAddr | string           | Converts a net.HardwareAddr to a string |
-| string           | []byte           | Converts a string to a byte slice       |
-| []byte           | string           | Converts a byte slice to a string       |
-| []rune           | string           | Converts a rune slice to a string       |
-| string           | []rune           | Converts a string to a rune slice       |
-
-### Registering Custom Conversions
-
-You can register custom conversions by defining functions for type conversion and using `ConvertUsing` to register them.
-
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/wernerstrydom/conversion"
-)
-
-type MySource struct {
-    Value int
+func FahrenheitToCelsius(f Fahrenheit) (Celsius, error) {
+  return Celsius((f - 32) * 5 / 9), nil
 }
 
-type MyDestination struct {
-    Value string
+func CelsiusToFahrenheit(c Celsius) (Fahrenheit, error) {
+  return Fahrenheit((c * 9 / 5) + 32), nil
 }
 
 func main() {
-    conversion.ConvertUsing(func(source MySource) (MyDestination, error) {
-        return MyDestination{Value: fmt.Sprintf("Converted: %d", source.Value)}, nil
-    })
 
-    var source = MySource{Value: 10}
-    var destination MyDestination
+  cfg := NewConfiguration()
+  cfg.RegisterTypeConverter(NewTypeConverter(FahrenheitToCelsius))
+  cfg.RegisterTypeConverter(NewTypeConverter(CelsiusToFahrenheit))
+  mapper := cfg.BuildMapper()
 
-    err := conversion.Convert(source, &destination)
-    if err != nil {
-        fmt.Println(err)
-    }
+  var err error
+  var fahrenheit Fahrenheit = 100
+  var celsius Celsius
 
-    fmt.Println(destination.Value) // Prints: Converted: 10
+  err = mapper.Map(fahrenheit, &celsius)
+  if err != nil {
+    fmt.Println("Error:", err)
+  } else {
+    fmt.Printf("%.2f°F is %.2f°C\n", fahrenheit, celsius)
+  }
+
+  err = mapper.Map(celsius, &fahrenheit)
+  if err != nil {
+    fmt.Println("Error:", err)
+  } else {
+    fmt.Printf("%.2f°C is %.2f°F\n", celsius, fahrenheit)
+  }
 }
 ```
+
+## Documentation
+
+More detailed documentation is available on [godoc](https://godoc.org/github.com/wernerstrydom/conversion).
 
 ## Contributing
 
-Contributions are always welcome! You can contribute in many ways:
-
-- Report issues
-- Propose new features
-- Improve/fix documentation
-- Submit bug fixes or features
-
-Before contributing, please read the [Contributing Guide](CONTRIBUTING.md).
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
-Conversion is licensed under the MIT license. Please see [License File](LICENSE.md) for more information.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- AutoMapper in .NET, which inspired this project.

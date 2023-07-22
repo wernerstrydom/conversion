@@ -210,10 +210,12 @@ import (
 // Bool
 // ----------------------------------------------------------------------------
 
+// ConvertBoolToBool converts a bool to a bool.
 func ConvertBoolToBool(v bool) (bool, error) {
 	return v, nil
 }
 
+// ConvertBoolToNumber converts a bool to an int. True is converted to 1, and false is converted to 0.
 func ConvertBoolToNumber[T Number](v bool) (T, error) {
 	if v {
 		return 1, nil
@@ -221,6 +223,7 @@ func ConvertBoolToNumber[T Number](v bool) (T, error) {
 	return 0, nil
 }
 
+// ConvertBoolToString converts a bool to a string. True is converted to "true", and false is converted to "false".
 func ConvertBoolToString(v bool) (string, error) {
 	if v {
 		return "true", nil
@@ -228,10 +231,12 @@ func ConvertBoolToString(v bool) (string, error) {
 	return "false", nil
 }
 
+// ConvertNumberToBool converts a number to a bool. 0 is converted to false, and any other number is converted to true.
 func ConvertNumberToBool[T Number](v T) (bool, error) {
 	return v != 0, nil
 }
 
+// ConvertStringToBool converts a string to a bool. "true" is converted to true, and "false" is converted to false.
 func ConvertStringToBool(v string) (bool, error) {
 	switch v {
 	case "true":
@@ -247,10 +252,12 @@ func ConvertStringToBool(v string) (bool, error) {
 // Int
 // ----------------------------------------------------------------------------
 
+// ConvertIntToInt converts an int to an int.
 func ConvertIntToInt(v int) (int, error) {
 	return v, nil
 }
 
+// ConvertIntToInt8 converts an int to an int8. If the int is outside the range of an int8, an OverflowError is returned.
 func ConvertIntToInt8(v int) (int8, error) {
 	if v < math.MinInt8 || v > math.MaxInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -258,6 +265,7 @@ func ConvertIntToInt8(v int) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertIntToInt16 converts an int to an int16. If the int is outside the range of an int16, an OverflowError is returned.
 func ConvertIntToInt16(v int) (int16, error) {
 	if v < math.MinInt16 || v > math.MaxInt16 {
 		return 0, NewOverflowError(v, math.MinInt16, math.MaxInt16)
@@ -265,6 +273,7 @@ func ConvertIntToInt16(v int) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertIntToInt32 converts an int to an int32. If the int is outside the range of an int32, an OverflowError is returned.
 func ConvertIntToInt32(v int) (int32, error) {
 	if v < math.MinInt32 || v > math.MaxInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -272,10 +281,12 @@ func ConvertIntToInt32(v int) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertIntToInt64 converts an int to an int64.
 func ConvertIntToInt64(v int) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertIntToUint converts an int to an uint. If the int is negative, an OverflowError is returned.
 func ConvertIntToUint(v int) (uint, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint(math.MaxUint))
@@ -283,6 +294,7 @@ func ConvertIntToUint(v int) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertIntToUint8 converts an int to an uint8. If the int is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertIntToUint8(v int) (uint8, error) {
 	if v < 0 || v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -290,6 +302,7 @@ func ConvertIntToUint8(v int) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertIntToUint16 converts an int to an uint16. If the int is negative, an OverflowError is returned.
 func ConvertIntToUint16(v int) (uint16, error) {
 	if v < 0 || v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -297,6 +310,7 @@ func ConvertIntToUint16(v int) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertIntToUint32 converts an int to an uint32. If the int is negative, an OverflowError is returned.
 func ConvertIntToUint32(v int) (uint32, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -304,6 +318,7 @@ func ConvertIntToUint32(v int) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertIntToUint64 converts an int to an uint64. If the int is negative, an OverflowError is returned.
 func ConvertIntToUint64(v int) (uint64, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -311,14 +326,17 @@ func ConvertIntToUint64(v int) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertIntToFloat32 converts an int to a float32.
 func ConvertIntToFloat32(v int) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertIntToFloat64 converts an int to a float64.
 func ConvertIntToFloat64(v int) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertIntToString converts an int to a string.
 func ConvertIntToString(v int) (string, error) {
 	return strconv.Itoa(v), nil
 }
@@ -327,26 +345,32 @@ func ConvertIntToString(v int) (string, error) {
 // Int8
 // ----------------------------------------------------------------------------
 
+// ConvertInt8ToInt converts an int8 to an int.
 func ConvertInt8ToInt(v int8) (int, error) {
 	return int(v), nil
 }
 
+// ConvertInt8ToInt8 converts an int8 to an int8.
 func ConvertInt8ToInt8(v int8) (int8, error) {
 	return v, nil
 }
 
+// ConvertInt8ToInt16 converts an int8 to an int16.
 func ConvertInt8ToInt16(v int8) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertInt8ToInt32 converts an int8 to an int32.
 func ConvertInt8ToInt32(v int8) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertInt8ToInt64 converts an int8 to an int64.
 func ConvertInt8ToInt64(v int8) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertInt8ToUint converts an int8 to an uint. If the int8 is negative, an OverflowError is returned.
 func ConvertInt8ToUint(v int8) (uint, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint(math.MaxUint))
@@ -354,6 +378,7 @@ func ConvertInt8ToUint(v int8) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertInt8ToUint8 converts an int8 to an uint8. If the int8 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertInt8ToUint8(v int8) (uint8, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -361,6 +386,7 @@ func ConvertInt8ToUint8(v int8) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertInt8ToUint16 converts an int8 to an uint16. If the int8 is negative, an OverflowError is returned.
 func ConvertInt8ToUint16(v int8) (uint16, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -368,6 +394,7 @@ func ConvertInt8ToUint16(v int8) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertInt8ToUint32 converts an int8 to an uint32. If the int8 is negative, an OverflowError is returned.
 func ConvertInt8ToUint32(v int8) (uint32, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -375,6 +402,7 @@ func ConvertInt8ToUint32(v int8) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertInt8ToUint64 converts an int8 to an uint64. If the int8 is negative, an OverflowError is returned.
 func ConvertInt8ToUint64(v int8) (uint64, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -382,14 +410,17 @@ func ConvertInt8ToUint64(v int8) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertInt8ToFloat32 converts an int8 to a float32.
 func ConvertInt8ToFloat32(v int8) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertInt8ToFloat64 converts an int8 to a float64.
 func ConvertInt8ToFloat64(v int8) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertInt8ToString converts an int8 to a string.
 func ConvertInt8ToString(v int8) (string, error) {
 	return strconv.FormatInt(int64(v), 10), nil
 }
@@ -398,10 +429,12 @@ func ConvertInt8ToString(v int8) (string, error) {
 // Int16
 // ----------------------------------------------------------------------------
 
+// ConvertInt16ToInt converts an int16 to an int.
 func ConvertInt16ToInt(v int16) (int, error) {
 	return int(v), nil
 }
 
+// ConvertInt16ToInt8 converts an int16 to an int8. If the int16 is outside the range of an int8, an OverflowError is returned.
 func ConvertInt16ToInt8(v int16) (int8, error) {
 	if v < math.MinInt8 || v > math.MaxInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -409,18 +442,22 @@ func ConvertInt16ToInt8(v int16) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertInt16ToInt16 converts an int16 to an int16.
 func ConvertInt16ToInt16(v int16) (int16, error) {
 	return v, nil
 }
 
+// ConvertInt16ToInt32 converts an int16 to an int32.
 func ConvertInt16ToInt32(v int16) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertInt16ToInt64 converts an int16 to an int64.
 func ConvertInt16ToInt64(v int16) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertInt16ToUint converts an int16 to an uint. If the int16 is negative, an OverflowError is returned.
 func ConvertInt16ToUint(v int16) (uint, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint(math.MaxUint))
@@ -428,6 +465,7 @@ func ConvertInt16ToUint(v int16) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertInt16ToUint8 converts an int16 to an uint8. If the int16 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertInt16ToUint8(v int16) (uint8, error) {
 	if v < 0 || v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -435,6 +473,7 @@ func ConvertInt16ToUint8(v int16) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertInt16ToUint16 converts an int16 to an uint16. If the int16 is negative or outside the range of an uint16, an OverflowError is returned.
 func ConvertInt16ToUint16(v int16) (uint16, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -442,6 +481,7 @@ func ConvertInt16ToUint16(v int16) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertInt16ToUint32 converts an int16 to an uint32. If the int16 is negative, an OverflowError is returned.
 func ConvertInt16ToUint32(v int16) (uint32, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -449,6 +489,7 @@ func ConvertInt16ToUint32(v int16) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertInt16ToUint64 converts an int16 to an uint64. If the int16 is negative, an OverflowError is returned.
 func ConvertInt16ToUint64(v int16) (uint64, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -456,14 +497,17 @@ func ConvertInt16ToUint64(v int16) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertInt16ToFloat32 converts an int16 to a float32.
 func ConvertInt16ToFloat32(v int16) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertInt16ToFloat64 converts an int16 to a float64.
 func ConvertInt16ToFloat64(v int16) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertInt16ToString converts an int16 to a string.
 func ConvertInt16ToString(v int16) (string, error) {
 	return strconv.FormatInt(int64(v), 10), nil
 }
@@ -472,10 +516,12 @@ func ConvertInt16ToString(v int16) (string, error) {
 // Int32
 // ----------------------------------------------------------------------------
 
+// ConvertInt32ToInt converts an int32 to an int.
 func ConvertInt32ToInt(v int32) (int, error) {
 	return int(v), nil
 }
 
+// ConvertInt32ToInt8 converts an int32 to an int8. If the int32 is outside the range of an int8, an OverflowError is returned.
 func ConvertInt32ToInt8(v int32) (int8, error) {
 	if v < math.MinInt8 || v > math.MaxInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -483,6 +529,7 @@ func ConvertInt32ToInt8(v int32) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertInt32ToInt16 converts an int32 to an int16. If the int32 is outside the range of an int16, an OverflowError is returned.
 func ConvertInt32ToInt16(v int32) (int16, error) {
 	if v < math.MinInt16 || v > math.MaxInt16 {
 		return 0, NewOverflowError(v, math.MinInt16, math.MaxInt16)
@@ -490,14 +537,17 @@ func ConvertInt32ToInt16(v int32) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertInt32ToInt32 converts an int32 to an int32.
 func ConvertInt32ToInt32(v int32) (int32, error) {
 	return v, nil
 }
 
+// ConvertInt32ToInt64 converts an int32 to an int64.
 func ConvertInt32ToInt64(v int32) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertInt32ToUint converts an int32 to an uint. If the int32 is negative, an OverflowError is returned.
 func ConvertInt32ToUint(v int32) (uint, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint(math.MaxUint))
@@ -505,6 +555,7 @@ func ConvertInt32ToUint(v int32) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertInt32ToUint8 converts an int32 to an uint8. If the int32 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertInt32ToUint8(v int32) (uint8, error) {
 	if v < 0 || v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -512,6 +563,7 @@ func ConvertInt32ToUint8(v int32) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertInt32ToUint16 converts an int32 to an uint16. If the int32 is negative or outside the range of an uint16, an OverflowError is returned.
 func ConvertInt32ToUint16(v int32) (uint16, error) {
 	if v < 0 || v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -519,6 +571,7 @@ func ConvertInt32ToUint16(v int32) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertInt32ToUint32 converts an int32 to an uint32. If the int32 is negative or outside the range of an uint32, an OverflowError is returned.
 func ConvertInt32ToUint32(v int32) (uint32, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -526,6 +579,7 @@ func ConvertInt32ToUint32(v int32) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertInt32ToUint64 converts an int32 to an uint64. If the int32 is negative, an OverflowError is returned.
 func ConvertInt32ToUint64(v int32) (uint64, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -533,14 +587,17 @@ func ConvertInt32ToUint64(v int32) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertInt32ToFloat32 converts an int32 to a float32.
 func ConvertInt32ToFloat32(v int32) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertInt32ToFloat64 converts an int32 to a float64.
 func ConvertInt32ToFloat64(v int32) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertInt32ToString converts an int32 to a string.
 func ConvertInt32ToString(v int32) (string, error) {
 	return strconv.FormatInt(int64(v), 10), nil
 }
@@ -549,13 +606,12 @@ func ConvertInt32ToString(v int32) (string, error) {
 // Int64
 // ----------------------------------------------------------------------------
 
+// ConvertInt64ToInt converts an int64 to an int.
 func ConvertInt64ToInt(v int64) (int, error) {
-	if v < math.MinInt32 || v > math.MaxInt32 {
-		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
-	}
 	return int(v), nil
 }
 
+// ConvertInt64ToInt8 converts an int64 to an int8. If the int64 is outside the range of an int8, an OverflowError is returned.
 func ConvertInt64ToInt8(v int64) (int8, error) {
 	if v < math.MinInt8 || v > math.MaxInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -563,6 +619,7 @@ func ConvertInt64ToInt8(v int64) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertInt64ToInt16 converts an int64 to an int16. If the int64 is outside the range of an int16, an OverflowError is returned.
 func ConvertInt64ToInt16(v int64) (int16, error) {
 	if v < math.MinInt16 || v > math.MaxInt16 {
 		return 0, NewOverflowError(v, math.MinInt16, math.MaxInt16)
@@ -570,6 +627,7 @@ func ConvertInt64ToInt16(v int64) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertInt64ToInt32 converts an int64 to an int32. If the int64 is outside the range of an int32, an OverflowError is returned.
 func ConvertInt64ToInt32(v int64) (int32, error) {
 	if v < math.MinInt32 || v > math.MaxInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -577,10 +635,12 @@ func ConvertInt64ToInt32(v int64) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertInt64ToInt64 converts an int64 to an int64.
 func ConvertInt64ToInt64(v int64) (int64, error) {
 	return v, nil
 }
 
+// ConvertInt64ToUint converts an int64 to an uint. If the int64 is negative, an OverflowError is returned.
 func ConvertInt64ToUint(v int64) (uint, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint(math.MaxUint))
@@ -588,6 +648,7 @@ func ConvertInt64ToUint(v int64) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertInt64ToUint8 converts an int64 to an uint8. If the int64 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertInt64ToUint8(v int64) (uint8, error) {
 	if v < 0 || v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -595,6 +656,7 @@ func ConvertInt64ToUint8(v int64) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertInt64ToUint16 converts an int64 to an uint16. If the int64 is negative or outside the range of an uint16, an OverflowError is returned.
 func ConvertInt64ToUint16(v int64) (uint16, error) {
 	if v < 0 || v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -602,6 +664,7 @@ func ConvertInt64ToUint16(v int64) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertInt64ToUint32 converts an int64 to an uint32. If the int64 is negative or outside the range of an uint32, an OverflowError is returned.
 func ConvertInt64ToUint32(v int64) (uint32, error) {
 	if v < 0 || v > math.MaxUint32 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -609,6 +672,7 @@ func ConvertInt64ToUint32(v int64) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertInt64ToUint64 converts an int64 to an uint64. If the int64 is negative, an OverflowError is returned.
 func ConvertInt64ToUint64(v int64) (uint64, error) {
 	if v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -616,14 +680,17 @@ func ConvertInt64ToUint64(v int64) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertInt64ToFloat32 converts an int64 to a float32.
 func ConvertInt64ToFloat32(v int64) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertInt64ToFloat64 converts an int64 to a float64.
 func ConvertInt64ToFloat64(v int64) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertInt64ToString converts an int64 to a string.
 func ConvertInt64ToString(v int64) (string, error) {
 	return strconv.FormatInt(v, 10), nil
 }
@@ -632,6 +699,7 @@ func ConvertInt64ToString(v int64) (string, error) {
 // Uint
 // ----------------------------------------------------------------------------
 
+// ConvertUintToInt converts an uint to an int. If the uint is outside the range of an int, an OverflowError is returned.
 func ConvertUintToInt(v uint) (int, error) {
 	if v > math.MaxInt32 {
 		return 0, NewOverflowError(v, 0, math.MaxInt32)
@@ -639,6 +707,7 @@ func ConvertUintToInt(v uint) (int, error) {
 	return int(v), nil
 }
 
+// ConvertUintToInt8 converts an uint to an int8. If the uint is outside the range of an int8, an OverflowError is returned.
 func ConvertUintToInt8(v uint) (int8, error) {
 	if v > math.MaxInt8 {
 		return 0, NewOverflowError(v, 0, math.MaxInt8)
@@ -646,6 +715,7 @@ func ConvertUintToInt8(v uint) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertUintToInt16 converts an uint to an int16. If the uint is outside the range of an int16, an OverflowError is returned.
 func ConvertUintToInt16(v uint) (int16, error) {
 	if v > math.MaxInt16 {
 		return 0, NewOverflowError(v, 0, math.MaxInt16)
@@ -653,6 +723,7 @@ func ConvertUintToInt16(v uint) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertUintToInt32 converts an uint to an int32. If the uint is outside the range of an int32, an OverflowError is returned.
 func ConvertUintToInt32(v uint) (int32, error) {
 	if v > math.MaxInt32 {
 		return 0, NewOverflowError(v, 0, math.MaxInt32)
@@ -660,6 +731,7 @@ func ConvertUintToInt32(v uint) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertUintToInt64 converts an uint to an int64. If the uint is outside the range of an int64, an OverflowError is returned.
 func ConvertUintToInt64(v uint) (int64, error) {
 	if v > math.MaxInt64 {
 		return 0, NewOverflowError(v, 0, math.MaxInt64)
@@ -667,10 +739,12 @@ func ConvertUintToInt64(v uint) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertUintToUint converts an uint to an uint.
 func ConvertUintToUint(v uint) (uint, error) {
 	return v, nil
 }
 
+// ConvertUintToUint8 converts an uint to an uint8. If the uint is outside the range of an uint8, an OverflowError is returned.
 func ConvertUintToUint8(v uint) (uint8, error) {
 	if v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -678,6 +752,7 @@ func ConvertUintToUint8(v uint) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertUintToUint16 converts an uint to an uint16. If the uint is outside the range of an uint16, an OverflowError is returned.
 func ConvertUintToUint16(v uint) (uint16, error) {
 	if v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -685,6 +760,7 @@ func ConvertUintToUint16(v uint) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertUintToUint32 converts an uint to an uint32. If the uint is outside the range of an uint32, an OverflowError is returned.
 func ConvertUintToUint32(v uint) (uint32, error) {
 	if v > math.MaxUint32 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -692,18 +768,22 @@ func ConvertUintToUint32(v uint) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertUintToUint64 converts an uint to an uint64. If the uint is outside the range of an uint64, an OverflowError is returned.
 func ConvertUintToUint64(v uint) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertUintToFloat32 converts an uint to a float32.
 func ConvertUintToFloat32(v uint) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertUintToFloat64 converts an uint to a float64.
 func ConvertUintToFloat64(v uint) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertUintToString converts an uint to a string.
 func ConvertUintToString(v uint) (string, error) {
 	return strconv.FormatUint(uint64(v), 10), nil
 }
@@ -712,10 +792,12 @@ func ConvertUintToString(v uint) (string, error) {
 // Uint8
 // ----------------------------------------------------------------------------
 
+// ConvertUint8ToInt converts an uint8 to an int.
 func ConvertUint8ToInt(v uint8) (int, error) {
 	return int(v), nil
 }
 
+// ConvertUint8ToInt8 converts an uint8 to an int8.
 func ConvertUint8ToInt8(v uint8) (int8, error) {
 	if v > math.MaxInt8 {
 		return 0, NewOverflowError(v, 0, math.MaxInt8)
@@ -723,46 +805,57 @@ func ConvertUint8ToInt8(v uint8) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertUint8ToInt16 converts an uint8 to an int16.
 func ConvertUint8ToInt16(v uint8) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertUint8ToInt32 converts an uint8 to an int32.
 func ConvertUint8ToInt32(v uint8) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertUint8ToInt64 converts an uint8 to an int64.
 func ConvertUint8ToInt64(v uint8) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertUint8ToUint converts an uint8 to an uint.
 func ConvertUint8ToUint(v uint8) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertUint8ToUint8 converts an uint8 to an uint8.
 func ConvertUint8ToUint8(v uint8) (uint8, error) {
 	return v, nil
 }
 
+// ConvertUint8ToUint16 converts an uint8 to an uint16.
 func ConvertUint8ToUint16(v uint8) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertUint8ToUint32 converts an uint8 to an uint32.
 func ConvertUint8ToUint32(v uint8) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertUint8ToUint64 converts an uint8 to an uint64.
 func ConvertUint8ToUint64(v uint8) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertUint8ToFloat32 converts an uint8 to a float32.
 func ConvertUint8ToFloat32(v uint8) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertUint8ToFloat64 converts an uint8 to a float64.
 func ConvertUint8ToFloat64(v uint8) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertUint8ToString converts an uint8 to a string.
 func ConvertUint8ToString(v uint8) (string, error) {
 	return strconv.FormatUint(uint64(v), 10), nil
 }
@@ -771,10 +864,12 @@ func ConvertUint8ToString(v uint8) (string, error) {
 // Uint16
 // ----------------------------------------------------------------------------
 
+// ConvertUint16ToInt converts an uint16 to an int.
 func ConvertUint16ToInt(v uint16) (int, error) {
 	return int(v), nil
 }
 
+// ConvertUint16ToInt8 converts an uint16 to an int8. If the uint16 is outside the range of an int8, an OverflowError is returned.
 func ConvertUint16ToInt8(v uint16) (int8, error) {
 	if v > math.MaxInt8 {
 		return 0, NewOverflowError(v, 0, math.MaxInt8)
@@ -782,6 +877,7 @@ func ConvertUint16ToInt8(v uint16) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertUint16ToInt16 converts an uint16 to an int16. If the uint16 is outside the range of an int16, an OverflowError is returned.
 func ConvertUint16ToInt16(v uint16) (int16, error) {
 	if v > math.MaxInt16 {
 		return 0, NewOverflowError(v, 0, math.MaxInt16)
@@ -789,42 +885,52 @@ func ConvertUint16ToInt16(v uint16) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertUint16ToInt32 converts an uint16 to an int32. If the uint16 is outside the range of an int32, an OverflowError is returned.
 func ConvertUint16ToInt32(v uint16) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertUint16ToInt64 converts an uint16 to an int64. If the uint16 is outside the range of an int64, an OverflowError is returned.
 func ConvertUint16ToInt64(v uint16) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertUint16ToUint converts an uint16 to an uint.
 func ConvertUint16ToUint(v uint16) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertUint16ToUint8 converts an uint16 to an uint8. If the uint16 is outside the range of an uint8, an OverflowError is returned.
 func ConvertUint16ToUint8(v uint16) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertUint16ToUint16 converts an uint16 to an uint16.
 func ConvertUint16ToUint16(v uint16) (uint16, error) {
 	return v, nil
 }
 
+// ConvertUint16ToUint32 converts an uint16 to an uint32.
 func ConvertUint16ToUint32(v uint16) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertUint16ToUint64 converts an uint16 to an uint64.
 func ConvertUint16ToUint64(v uint16) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertUint16ToFloat32 converts an uint16 to a float32.
 func ConvertUint16ToFloat32(v uint16) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertUint16ToFloat64 converts an uint16 to a float64.
 func ConvertUint16ToFloat64(v uint16) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertUint16ToString converts an uint16 to a string.
 func ConvertUint16ToString(v uint16) (string, error) {
 	return strconv.FormatUint(uint64(v), 10), nil
 }
@@ -833,6 +939,7 @@ func ConvertUint16ToString(v uint16) (string, error) {
 // Uint32
 // ----------------------------------------------------------------------------
 
+// ConvertUint32ToInt converts an uint32 to an int.
 func ConvertUint32ToInt(v uint32) (int, error) {
 	if v > math.MaxInt32 {
 		return 0, NewOverflowError(v, 0, math.MaxInt32)
@@ -840,6 +947,7 @@ func ConvertUint32ToInt(v uint32) (int, error) {
 	return int(v), nil
 }
 
+// ConvertUint32ToInt8 converts an uint32 to an int8. If the uint32 is outside the range of an int8, an OverflowError is returned.
 func ConvertUint32ToInt8(v uint32) (int8, error) {
 	if v > math.MaxInt8 {
 		return 0, NewOverflowError(v, 0, math.MaxInt8)
@@ -847,6 +955,7 @@ func ConvertUint32ToInt8(v uint32) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertUint32ToInt16 converts an uint32 to an int16. If the uint32 is outside the range of an int16, an OverflowError is returned.
 func ConvertUint32ToInt16(v uint32) (int16, error) {
 	if v > math.MaxInt16 {
 		return 0, NewOverflowError(v, 0, math.MaxInt16)
@@ -854,6 +963,7 @@ func ConvertUint32ToInt16(v uint32) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertUint32ToInt32 converts an uint32 to an int32. If the uint32 is outside the range of an int32, an OverflowError is returned.
 func ConvertUint32ToInt32(v uint32) (int32, error) {
 	if v > math.MaxInt32 {
 		return 0, NewOverflowError(v, 0, math.MaxInt32)
@@ -861,14 +971,17 @@ func ConvertUint32ToInt32(v uint32) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertUint32ToInt64 converts an uint32 to an int64. If the uint32 is outside the range of an int64, an OverflowError is returned.
 func ConvertUint32ToInt64(v uint32) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertUint32ToUint converts an uint32 to an uint.
 func ConvertUint32ToUint(v uint32) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertUint32ToUint8 converts an uint32 to an uint8. If the uint32 is outside the range of an uint8, an OverflowError is returned.
 func ConvertUint32ToUint8(v uint32) (uint8, error) {
 	if v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -876,6 +989,7 @@ func ConvertUint32ToUint8(v uint32) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertUint32ToUint16 converts an uint32 to an uint16. If the uint32 is outside the range of an uint16, an OverflowError is returned.
 func ConvertUint32ToUint16(v uint32) (uint16, error) {
 	if v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -883,22 +997,27 @@ func ConvertUint32ToUint16(v uint32) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertUint32ToUint32 converts an uint32 to an uint32.
 func ConvertUint32ToUint32(v uint32) (uint32, error) {
 	return v, nil
 }
 
+// ConvertUint32ToUint64 converts an uint32 to an uint64.
 func ConvertUint32ToUint64(v uint32) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertUint32ToFloat32 converts an uint32 to a float32.
 func ConvertUint32ToFloat32(v uint32) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertUint32ToFloat64 converts an uint32 to a float64.
 func ConvertUint32ToFloat64(v uint32) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertUint32ToString converts an uint32 to a string.
 func ConvertUint32ToString(v uint32) (string, error) {
 	return strconv.FormatUint(uint64(v), 10), nil
 }
@@ -907,6 +1026,7 @@ func ConvertUint32ToString(v uint32) (string, error) {
 // Uint64
 // ----------------------------------------------------------------------------
 
+// ConvertUint64ToInt converts an uint64 to an int. If the uint64 is outside the range of an int, an OverflowError is returned.
 func ConvertUint64ToInt(v uint64) (int, error) {
 	if v > math.MaxInt64 {
 		return 0, NewOverflowError(v, 0, math.MaxInt64)
@@ -914,6 +1034,7 @@ func ConvertUint64ToInt(v uint64) (int, error) {
 	return int(v), nil
 }
 
+// ConvertUint64ToInt8 converts an uint64 to an int8. If the uint64 is outside the range of an int8, an OverflowError is returned.
 func ConvertUint64ToInt8(v uint64) (int8, error) {
 	if v > math.MaxInt8 {
 		return 0, NewOverflowError(v, 0, math.MaxInt8)
@@ -921,6 +1042,7 @@ func ConvertUint64ToInt8(v uint64) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertUint64ToInt16 converts an uint64 to an int16. If the uint64 is outside the range of an int16, an OverflowError is returned.
 func ConvertUint64ToInt16(v uint64) (int16, error) {
 	if v > math.MaxInt16 {
 		return 0, NewOverflowError(v, 0, math.MaxInt16)
@@ -928,6 +1050,7 @@ func ConvertUint64ToInt16(v uint64) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertUint64ToInt32 converts an uint64 to an int32. If the uint64 is outside the range of an int32, an OverflowError is returned.
 func ConvertUint64ToInt32(v uint64) (int32, error) {
 	if v > math.MaxInt32 {
 		return 0, NewOverflowError(v, 0, math.MaxInt32)
@@ -935,6 +1058,7 @@ func ConvertUint64ToInt32(v uint64) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertUint64ToInt64 converts an uint64 to an int64. If the uint64 is outside the range of an int64, an OverflowError is returned.
 func ConvertUint64ToInt64(v uint64) (int64, error) {
 	if v > math.MaxInt64 {
 		return 0, NewOverflowError(v, 0, math.MaxInt64)
@@ -942,6 +1066,7 @@ func ConvertUint64ToInt64(v uint64) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertUint64ToUint converts an uint64 to an uint. If the uint64 is outside the range of an uint, an OverflowError is returned.
 func ConvertUint64ToUint(v uint64) (uint, error) {
 	if v > math.MaxUint {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint))
@@ -949,6 +1074,7 @@ func ConvertUint64ToUint(v uint64) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertUint64ToUint8 converts an uint64 to an uint8. If the uint64 is outside the range of an uint8, an OverflowError is returned.
 func ConvertUint64ToUint8(v uint64) (uint8, error) {
 	if v > math.MaxUint8 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -956,6 +1082,7 @@ func ConvertUint64ToUint8(v uint64) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertUint64ToUint16 converts an uint64 to an uint16. If the uint64 is outside the range of an uint16, an OverflowError is returned.
 func ConvertUint64ToUint16(v uint64) (uint16, error) {
 	if v > math.MaxUint16 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -963,6 +1090,7 @@ func ConvertUint64ToUint16(v uint64) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertUint64ToUint32 converts an uint64 to an uint32. If the uint64 is outside the range of an uint32, an OverflowError is returned.
 func ConvertUint64ToUint32(v uint64) (uint32, error) {
 	if v > math.MaxUint32 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -970,18 +1098,22 @@ func ConvertUint64ToUint32(v uint64) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertUint64ToUint64 converts an uint64 to an uint64.
 func ConvertUint64ToUint64(v uint64) (uint64, error) {
 	return v, nil
 }
 
+// ConvertUint64ToFloat32 converts an uint64 to a float32.
 func ConvertUint64ToFloat32(v uint64) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertUint64ToFloat64 converts an uint64 to a float64.
 func ConvertUint64ToFloat64(v uint64) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertUint64ToString converts an uint64 to a string.
 func ConvertUint64ToString(v uint64) (string, error) {
 	return strconv.FormatUint(uint64(v), 10), nil
 }
@@ -990,6 +1122,7 @@ func ConvertUint64ToString(v uint64) (string, error) {
 // Float32
 // ----------------------------------------------------------------------------
 
+// ConvertFloat32ToInt converts a float32 to an int. If the float32 is outside the range of an int, an OverflowError is returned.
 func ConvertFloat32ToInt(v float32) (int, error) {
 	if v > math.MaxInt32 || v < math.MinInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -997,6 +1130,7 @@ func ConvertFloat32ToInt(v float32) (int, error) {
 	return int(v), nil
 }
 
+// ConvertFloat32ToInt8 converts a float32 to an int8. If the float32 is outside the range of an int8, an OverflowError is returned.
 func ConvertFloat32ToInt8(v float32) (int8, error) {
 	if v > math.MaxInt8 || v < math.MinInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -1004,6 +1138,7 @@ func ConvertFloat32ToInt8(v float32) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertFloat32ToInt16 converts a float32 to an int16. If the float32 is outside the range of an int16, an OverflowError is returned.
 func ConvertFloat32ToInt16(v float32) (int16, error) {
 	if v > math.MaxInt16 || v < math.MinInt16 {
 		return 0, NewOverflowError(v, math.MinInt16, math.MaxInt16)
@@ -1011,6 +1146,7 @@ func ConvertFloat32ToInt16(v float32) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertFloat32ToInt32 converts a float32 to an int32. If the float32 is outside the range of an int32, an OverflowError is returned.
 func ConvertFloat32ToInt32(v float32) (int32, error) {
 	if v > math.MaxInt32 || v < math.MinInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -1018,6 +1154,7 @@ func ConvertFloat32ToInt32(v float32) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertFloat32ToInt64 converts a float32 to an int64. If the float32 is outside the range of an int64, an OverflowError is returned.
 func ConvertFloat32ToInt64(v float32) (int64, error) {
 	if v > math.MaxInt64 || v < math.MinInt64 {
 		return 0, NewOverflowError(v, math.MinInt64, math.MaxInt64)
@@ -1025,6 +1162,7 @@ func ConvertFloat32ToInt64(v float32) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertFloat32ToUint converts a float32 to an uint. If the float32 is negative, an OverflowError is returned.
 func ConvertFloat32ToUint(v float32) (uint, error) {
 	if v > math.MaxUint32 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -1032,6 +1170,7 @@ func ConvertFloat32ToUint(v float32) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertFloat32ToUint8 converts a float32 to an uint8. If the float32 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertFloat32ToUint8(v float32) (uint8, error) {
 	if v > math.MaxUint8 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -1039,6 +1178,7 @@ func ConvertFloat32ToUint8(v float32) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertFloat32ToUint16 converts a float32 to an uint16. If the float32 is negative or outside the range of an uint16, an OverflowError is returned.
 func ConvertFloat32ToUint16(v float32) (uint16, error) {
 	if v > math.MaxUint16 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -1046,6 +1186,7 @@ func ConvertFloat32ToUint16(v float32) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertFloat32ToUint32 converts a float32 to an uint32. If the float32 is negative or outside the range of an uint32, an OverflowError is returned.
 func ConvertFloat32ToUint32(v float32) (uint32, error) {
 	if v > math.MaxUint32 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -1053,6 +1194,7 @@ func ConvertFloat32ToUint32(v float32) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertFloat32ToUint64 converts a float32 to an uint64. If the float32 is negative, an OverflowError is returned.
 func ConvertFloat32ToUint64(v float32) (uint64, error) {
 	if v > math.MaxUint64 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -1060,14 +1202,17 @@ func ConvertFloat32ToUint64(v float32) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertFloat32ToFloat32 converts a float32 to a float32.
 func ConvertFloat32ToFloat32(v float32) (float32, error) {
 	return v, nil
 }
 
+// ConvertFloat32ToFloat64 converts a float32 to a float64.
 func ConvertFloat32ToFloat64(v float32) (float64, error) {
 	return float64(v), nil
 }
 
+// ConvertFloat32ToString converts a float32 to a string.
 func ConvertFloat32ToString(v float32) (string, error) {
 	return strconv.FormatFloat(float64(v), 'f', -1, 32), nil
 }
@@ -1076,6 +1221,7 @@ func ConvertFloat32ToString(v float32) (string, error) {
 // Float64
 // ----------------------------------------------------------------------------
 
+// ConvertFloat64ToInt converts a float64 to an int. If the float64 is outside the range of an int, an OverflowError is returned.
 func ConvertFloat64ToInt(v float64) (int, error) {
 	if v > math.MaxInt32 || v < math.MinInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -1083,6 +1229,7 @@ func ConvertFloat64ToInt(v float64) (int, error) {
 	return int(v), nil
 }
 
+// ConvertFloat64ToInt8 converts a float64 to an int8. If the float64 is outside the range of an int8, an OverflowError is returned.
 func ConvertFloat64ToInt8(v float64) (int8, error) {
 	if v > math.MaxInt8 || v < math.MinInt8 {
 		return 0, NewOverflowError(v, math.MinInt8, math.MaxInt8)
@@ -1090,6 +1237,7 @@ func ConvertFloat64ToInt8(v float64) (int8, error) {
 	return int8(v), nil
 }
 
+// ConvertFloat64ToInt16 converts a float64 to an int16. If the float64 is outside the range of an int16, an OverflowError is returned.
 func ConvertFloat64ToInt16(v float64) (int16, error) {
 	if v > math.MaxInt16 || v < math.MinInt16 {
 		return 0, NewOverflowError(v, math.MinInt16, math.MaxInt16)
@@ -1097,6 +1245,7 @@ func ConvertFloat64ToInt16(v float64) (int16, error) {
 	return int16(v), nil
 }
 
+// ConvertFloat64ToInt32 converts a float64 to an int32. If the float64 is outside the range of an int32, an OverflowError is returned.
 func ConvertFloat64ToInt32(v float64) (int32, error) {
 	if v > math.MaxInt32 || v < math.MinInt32 {
 		return 0, NewOverflowError(v, math.MinInt32, math.MaxInt32)
@@ -1104,6 +1253,7 @@ func ConvertFloat64ToInt32(v float64) (int32, error) {
 	return int32(v), nil
 }
 
+// ConvertFloat64ToInt64 converts a float64 to an int64. If the float64 is outside the range of an int64, an OverflowError is returned.
 func ConvertFloat64ToInt64(v float64) (int64, error) {
 	if v > math.MaxInt64 || v < math.MinInt64 {
 		return 0, NewOverflowError(v, math.MinInt64, math.MaxInt64)
@@ -1111,6 +1261,7 @@ func ConvertFloat64ToInt64(v float64) (int64, error) {
 	return int64(v), nil
 }
 
+// ConvertFloat64ToUint converts a float64 to an uint. If the float64 is negative, an OverflowError is returned.
 func ConvertFloat64ToUint(v float64) (uint, error) {
 	if v > math.MaxUint32 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -1118,6 +1269,7 @@ func ConvertFloat64ToUint(v float64) (uint, error) {
 	return uint(v), nil
 }
 
+// ConvertFloat64ToUint8 converts a float64 to an uint8. If the float64 is negative or outside the range of an uint8, an OverflowError is returned.
 func ConvertFloat64ToUint8(v float64) (uint8, error) {
 	if v > math.MaxUint8 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint8(math.MaxUint8))
@@ -1125,6 +1277,7 @@ func ConvertFloat64ToUint8(v float64) (uint8, error) {
 	return uint8(v), nil
 }
 
+// ConvertFloat64ToUint16 converts a float64 to an uint16. If the float64 is negative or outside the range of an uint16, an OverflowError is returned.
 func ConvertFloat64ToUint16(v float64) (uint16, error) {
 	if v > math.MaxUint16 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint16(math.MaxUint16))
@@ -1132,6 +1285,7 @@ func ConvertFloat64ToUint16(v float64) (uint16, error) {
 	return uint16(v), nil
 }
 
+// ConvertFloat64ToUint32 converts a float64 to an uint32. If the float64 is negative or outside the range of an uint32, an OverflowError is returned.
 func ConvertFloat64ToUint32(v float64) (uint32, error) {
 	if v > math.MaxUint32 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint32(math.MaxUint32))
@@ -1139,6 +1293,7 @@ func ConvertFloat64ToUint32(v float64) (uint32, error) {
 	return uint32(v), nil
 }
 
+// ConvertFloat64ToUint64 converts a float64 to an uint64. If the float64 is negative, an OverflowError is returned.
 func ConvertFloat64ToUint64(v float64) (uint64, error) {
 	if v > math.MaxUint64 || v < 0 {
 		return 0, NewOverflowError(v, 0, uint64(math.MaxUint64))
@@ -1146,14 +1301,17 @@ func ConvertFloat64ToUint64(v float64) (uint64, error) {
 	return uint64(v), nil
 }
 
+// ConvertFloat64ToFloat32 converts a float64 to a float32. If the float64 is outside the range of a float32, an OverflowError is returned.
 func ConvertFloat64ToFloat32(v float64) (float32, error) {
 	return float32(v), nil
 }
 
+// ConvertFloat64ToFloat64 converts a float64 to a float64.
 func ConvertFloat64ToFloat64(v float64) (float64, error) {
 	return v, nil
 }
 
+// ConvertFloat64ToString converts a float64 to a string.
 func ConvertFloat64ToString(v float64) (string, error) {
 	return strconv.FormatFloat(v, 'f', -1, 64), nil
 }
@@ -1162,62 +1320,75 @@ func ConvertFloat64ToString(v float64) (string, error) {
 // String
 // ----------------------------------------------------------------------------
 
+// ConvertStringToInt converts a string to an int. If the string is not a valid int, a ParseError is returned.
 func ConvertStringToInt(v string) (int, error) {
 	return strconv.Atoi(v)
 }
 
+// ConvertStringToInt8 converts a string to an int8. If the string is not a valid int8, a ParseError is returned.
 func ConvertStringToInt8(v string) (int8, error) {
 	i, err := strconv.ParseInt(v, 10, 8)
 	return int8(i), err
 }
 
+// ConvertStringToInt16 converts a string to an int16. If the string is not a valid int16, a ParseError is returned.
 func ConvertStringToInt16(v string) (int16, error) {
 	i, err := strconv.ParseInt(v, 10, 16)
 	return int16(i), err
 }
 
+// ConvertStringToInt32 converts a string to an int32. If the string is not a valid int32, a ParseError is returned.
 func ConvertStringToInt32(v string) (int32, error) {
 	i, err := strconv.ParseInt(v, 10, 32)
 	return int32(i), err
 }
 
+// ConvertStringToInt64 converts a string to an int64. If the string is not a valid int64, a ParseError is returned.
 func ConvertStringToInt64(v string) (int64, error) {
 	return strconv.ParseInt(v, 10, 64)
 }
 
+// ConvertStringToUint converts a string to an uint. If the string is not a valid uint, a ParseError is returned.
 func ConvertStringToUint(v string) (uint, error) {
 	i, err := strconv.ParseUint(v, 10, 32)
 	return uint(i), err
 }
 
+// ConvertStringToUint8 converts a string to an uint8. If the string is not a valid uint8, a ParseError is returned.
 func ConvertStringToUint8(v string) (uint8, error) {
 	i, err := strconv.ParseUint(v, 10, 8)
 	return uint8(i), err
 }
 
+// ConvertStringToUint16 converts a string to an uint16. If the string is not a valid uint16, a ParseError is returned.
 func ConvertStringToUint16(v string) (uint16, error) {
 	i, err := strconv.ParseUint(v, 10, 16)
 	return uint16(i), err
 }
 
+// ConvertStringToUint32 converts a string to an uint32. If the string is not a valid uint32, a ParseError is returned.
 func ConvertStringToUint32(v string) (uint32, error) {
 	i, err := strconv.ParseUint(v, 10, 32)
 	return uint32(i), err
 }
 
+// ConvertStringToUint64 converts a string to an uint64. If the string is not a valid uint64, a ParseError is returned.
 func ConvertStringToUint64(v string) (uint64, error) {
 	return strconv.ParseUint(v, 10, 64)
 }
 
+// ConvertStringToFloat32 converts a string to a float32. If the string is not a valid float32, a ParseError is returned.
 func ConvertStringToFloat32(v string) (float32, error) {
 	f, err := strconv.ParseFloat(v, 32)
 	return float32(f), err
 }
 
+// ConvertStringToFloat64 converts a string to a float64. If the string is not a valid float64, a ParseError is returned.
 func ConvertStringToFloat64(v string) (float64, error) {
 	return strconv.ParseFloat(v, 64)
 }
 
+// ConvertStringToString converts a string to a string.
 func ConvertStringToString(v string) (string, error) {
 	return v, nil
 }
