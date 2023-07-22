@@ -44,7 +44,9 @@ func (tc structTypeConverter) Convert(
 			}
 
 			// if they are not the same type, use the map context to map the sourceField to the destinationField
-			err := mapper.Map(sourceField.Interface(), destinationField.Addr().Interface())
+			sv := sourceField.Interface()
+			dv := destinationField.Addr().Interface()
+			err := mapper.Map(sv, dv)
 			if err != nil {
 				return reflect.Value{}, err
 			}
